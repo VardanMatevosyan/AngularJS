@@ -1,0 +1,147 @@
+﻿<!doctype html>
+<html ng-app="app">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.32/angular.min.js"></script>
+ <script src="main.js"></script>
+ </head>
+  <body>
+    <div>
+<h2>Angular Expression</h2>
+      <hr>
+      <label>Name:</label>
+      <input type="text" ng-model="yourName" placeholder="Enter a name here">
+
+      <h1>Hello {{yourName}}!</h1>
+	<hr>
+	<br>
+	<br>
+
+
+
+<h2>Angular Controller</h2>
+      <hr>
+<div ng-controller="contDiv">
+<form>
+<input type="text" ng-model="contInput" size="30">
+<input type="button" value="{{contrButton}}">
+<input type="button" value="{{contInput}}">
+</form>
+</div>
+<hr>
+<br>
+<br>
+
+
+
+<h2>Angular Form Submit</h2>
+      <hr>
+ <form ng-submit="addTask()">
+        <input type="text" ng-model="description"  size="30"
+               placeholder="add new task here">
+        <input class="btn-primary" type="submit" value="add">
+      </form>
+<hr>
+<br>
+<br>
+
+
+
+
+<h2>Angular Nested Controllers</h2>
+      <hr>
+ <div ng-controller="parrent">
+        <div ng-controller="firstChild">
+<button ng-click="showMsg()">Show first child massage</button>
+</div>
+        <div ng-controller="secondChild">
+<button ng-click="showMsg()">Show second child massage</button>
+</div>
+      </div>
+<hr>
+<br>
+<br>
+
+
+<h2>Angular DIRECTIVE</h2>
+      <hr>
+<div direct="myAsttr, 2">
+directive
+</div>
+<hr>
+<br>
+<br>
+
+
+<h2>Angular FILTER</h2>
+      <hr>
+<div ng-controller="filterContr">
+{{money1 | filterMOney}}
+{{money2 | filterMOney}}
+{{money3 | filterMOney}}
+</div>
+<hr>
+<br>
+<br>
+
+
+<h2>Angular Directive Restricte</h2>
+      <hr>
+<div direct>
+Attr directive
+</div>
+<direct>Element directive</direct>
+<div class="direct">Class directive</div>
+<hr>
+<br>
+<br>
+
+
+<h2>Angular Directive TEMPLATE</h2>
+      <hr>
+<temp></temp>
+<hr>
+<br>
+<br>
+
+
+
+<h2>Angular TRANSCLUDE</h2>
+      <hr>
+<div ng-controller="controllerForTransclude">
+	<tran>text = HTML  file info variable =  {{name}}</tran>
+</div>
+<hr>
+<br>
+<br>
+
+
+<h2>Angular TEMPLATE URL</h2>
+      <hr>
+<url-temp></url-temp>
+
+<script type='text/ng-template' id='bookmarks.html'>
+	<div ng-repeat='bookmark in bookmarks'>
+		{{bookmark.id}}
+		{{bookmark.name}}
+		<br>
+	</div>
+</script>
+
+
+
+<hr>
+<br>
+<br>
+
+
+<h2>Angular TEMPLATE URL CACHE</h2>
+      <hr>
+<cache></cache>
+<hr>
+<br>
+<br>
+
+
+    </div>
+  </body>
+</html>
