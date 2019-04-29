@@ -142,6 +142,44 @@ Attr directive
 <br>
 
 
+
+<h2>Angular Scope false</h2>
+      <hr>
+<div ng-controller='controllerScopeFalse'>
+	<scope-false></scope-false>
+</div>
+<hr>
+<br>
+<br>
+
+<h2>Angular Scope true</h2>
+      <hr>
+<div ng-controller='controllerScopeTrue'>
+	<p>Name from scope {{name}}</p>
+	<span>Books from controller</span>
+	<p ng-repeat="book in bookForScopeTrue">{{book.name}}</p>
+	
+	<scope-true></scope-true>
+</div>
+<hr>
+<br>
+<br>
+
+
+<h2>Angular Isolated Scope</h2>
+      <hr>
+<div ng-controller='controllerIsolatedScope'>
+	<p>Name from scope {{name}}</p>
+	<span>Books from controller</span>
+	<p ng-repeat="book in bookForIsolatedScope">{{book.name}}</p>
+	<div><button ng-click='writetoconsole()'>writeToConsoleFromController</buttorn></div>
+
+	<scope-isolated name="name",  bookForIsolatedScope={{bookForIsolatedScope}}, writetoconsole="writetoconsole()"></scope-isolated>
+</div>
+<hr>
+<br>
+<br>
+
     </div>
   </body>
 </html>

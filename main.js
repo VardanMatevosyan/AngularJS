@@ -153,5 +153,97 @@ app.run(function($templateCache) {
 		"<div ng-repeat='bookmarkCache in bookmarksCache'>{{bookmarkCache.id}} - {{bookmarkCache.name}}<br></div>");
 });
 
-////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////Angular Scope false////////////////////////////////////////
+app.controller('controllerScopeFalse', function($scope) {
+	$scope.bookForScope =  [{id: 1, name: 'AngularJS'}, {id: 2, name: 'Angular'}, {id: 3, name: 'ViewJS'}];
+	$scope.getBooks = function() {
+		return $scope.bookForScope;
+	}
+});
 
+app.directive('scopeFalse', function() {
+	return {
+		scope: false,
+		restrict: 'E',
+		template: "<div ng-repeat='bookmark in getBooks() '><p>{{bookmark.id}}</p><p>{{bookmark.name}}</p></div>",
+		link: function(scope, element, attrs) {
+			var books = scope.getBooks();
+			books[1] = {id: 4, name: 'Change book name from Angular to Scope in directive'};
+		
+		}
+	}
+});
+
+//////////////////////////////////////Angular Scope true//////////////////array is changed, but should not if scope is set to true////////////////////
+app.controller('controllerScopeTrue', function($scope) {
+	$scope.bookForScopeTrue =  [{id: 1, name: 'AngularJS'}, {id: 2, name: 'Angular'}, {id: 3, name: 'ViewJS'}];
+	$scope.name = "Harry";
+	$scope.getBooks = function() {
+		return $scope.bookForScopeTrue;
+	}
+	console.log('scope form controller', $scope.bookForScopeTrue[1].name);
+
+	$scope.getResultScope = function() {
+		console.log('scope form controller', $scope.bookForScopeTrue[1].name);
+	}
+});
+
+app.directive('scopeTrue', function() {
+	
+	return {
+		scope: true,
+		restrict: 'E',
+		template: "<div>Name from directive {{name}}<input type='text', ng-model='name'></div><div>Books {{bookForScopeTrue}}<input type='text', ng-change='getResult()', ng-model='$parent.bookForScopeTrue[1].name'></div>",
+		link: function(scope, element, attrs) {
+			console.log('scope form directive', scope);
+		 	scope.getResult = function() {
+				console.log('scope form directive', scope.bookForScopeTrue[1].name);
+				console.log('PARENT scope form directive', this.$parent.bookForScopeTrue[1].name);
+			}
+		}
+	}
+});
+
+
+//////////////////////////////////////Angular Isolated Scope//////////////////////////////////////
+app.controller('controllerIsolatedScope', function($scope) {
+	$scope.bookForIsolatedScope =  [{id: 1, name: 'AngularJS'}, {id: 2, name: 'Angular'}, {id: 3, name: 'ViewJS'}];
+	$scope.name = "Harry";
+	$scope.getBooks = function() {
+		console.log('inside getBooks function');
+		return $scope.bookForIsolatedScope;
+	}
+
+	$scope.writetoconsole = function() {
+		console.log('inside getBooks function');
+	}
+
+	console.log('scope form controller', $scope.bookForIsolatedScope[1].name);
+
+	$scope.getResultScope = function() {
+		console.log('scope form controller', $scope.bookForIsolatedScope[1].name);
+	}
+});
+
+app.directive('scopeIsolated', function() {
+	
+	return {
+		scope: {
+			bookForIsolatedScope: '@',
+			writetoconsole: '&',
+			name: '='
+		},
+		restrict: 'E',
+		template: "<div><div>Name from directive {{name}}<input type='text', ng-model='name'></div>" + 
+		"<div>Books {{bookForIsolatedScope}}<input type='text', ng-change='getResult()', ng-model='bookForIsolatedScope[1].name'></div>" + 
+		"<div><button ng-click='writetoconsole()'>writeToConsoleFromDirective</buttorn></div>",
+		link: function(scope, element, attrs) {
+			console.log('scope form directive', scope);
+		 	scope.getResult = function() {
+				console.log('scope form directive', scope.bookForIsolatedScope[1].name);
+				console.log('PARENT scope form directive', this.$parent.bookForIsolatedScope[1].name);
+				scope.writetoconsole();
+			}
+		}
+	}
+});
