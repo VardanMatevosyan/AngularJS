@@ -42,7 +42,7 @@ return {
 });
 
 
-////////////////////////////////////////////////////////////////////////////
+////////////////////////////////Filter////////////////////////////////////////////
 app.controller("filterContr", function($scope) {
 	$scope.money1 = '1.12$';
 	$scope.money2 = '$2.24';
@@ -66,7 +66,7 @@ app.filter("filterMOney", function() {
 });
 
 
-////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////Restrict/////////////////////////////////////////
 
 app.directive("direct", function() {
 	return  {
@@ -90,7 +90,7 @@ app.directive("direct", function() {
 
 
 
-////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////Template///////////////////////////////////////////
 
 app.directive("temp", function() {
 var bookmarks = [{id: 1, name: 'AngularJS'}, {id: 2, name: 'Angular'}, {id: 2, name: 'ViewJS'}];
@@ -103,7 +103,7 @@ var bookmarks = [{id: 1, name: 'AngularJS'}, {id: 2, name: 'Angular'}, {id: 2, n
 	};
 });
 
-////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////Transclude TRUE/////////////////////////////////////////
 app.controller('controllerForTransclude', function($scope) {
 	$scope.name = 'Variable from controller';
 });
@@ -123,7 +123,7 @@ app.directive('tran', function() {
 
 
 
-////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////Template URL//////////////////////////////////////////
 app.directive('urlTemp', function() {
 var bookmarks = [{id: 1, name: 'AngularJS'}, {id: 2, name: 'Angular'}, {id: 3, name: 'ViewJS'}];
 	return {
@@ -136,7 +136,7 @@ var bookmarks = [{id: 1, name: 'AngularJS'}, {id: 2, name: 'Angular'}, {id: 3, n
 });
 
 
-////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////Template cache//////////////////////////////////////////
 app.directive('cache', function($templateCache) {
 var bookmarksCache = [{id: 1, name: 'AngularJS'}, {id: 2, name: 'Angular'}, {id: 3, name: 'ViewJS'}];
 	return {
@@ -246,4 +246,20 @@ app.directive('scopeIsolated', function() {
 			}
 		}
 	}
+});
+
+//////////////////////////////////////Angular Transclude Element//////////////////////////////////////
+app.directive('wrapIn', function($templateCache) {
+	return {
+		restrict : 'A',
+		transclude: 'element',
+		template: 'template = text from directive ',
+		link: function(scope, element, attrs, ctrl, transclude) {
+			var template = $templateCache.get(attrs.wrapIn);
+			var templateElement = angular.element(template);
+			transclude(scope, function(clone) {
+				element.after(templateElement.append(clone));
+			});
+		}
+	};
 });

@@ -180,6 +180,32 @@ Attr directive
 <br>
 <br>
 
+
+<h2>Angular Transclude Element</h2>
+      <hr>
+<form wrap-in='table'>
+	<div>
+		<label>Email:</label>
+		<input type='text' placeholder='Place yout email'>
+	</div>
+	<div>
+		<label>Password:</label>
+		<input type='password' placeholder='Place yout password'>
+	</div>
+	<button>Submit</button>
+</form>
+
+<script type='text/ng-template' id='red'>
+	<div class='red'></div>
+</script>
+
+<script type='text/ng-template' id='table'>
+	<div class='table'>Table</div>
+</script>
+<hr>
+<br>
+<br>
+
     </div>
   </body>
 </html>
