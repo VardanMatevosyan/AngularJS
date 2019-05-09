@@ -263,3 +263,18 @@ app.directive('wrapIn', function($templateCache) {
 		}
 	};
 });
+
+////////////////////////////////////Angular HTTP////////////////////////////////////////
+app.controller('controllerHtml', function($scope, $http) {
+	$http.get("https://jsonplaceholder.typicode.com/posts")
+		.success(function(result) {
+			$scope.posts =result;
+			console.log('success');
+		})
+		.error(function(data, status) {
+			console.log('error');
+			console.log('data', data);
+			console.log('status', status);
+	});
+	
+});
